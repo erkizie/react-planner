@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
+import Context from '../../context'
 
 const styles = {
   li: {
@@ -17,8 +18,10 @@ const styles = {
   }
 }
 
+// We send deleteTodo ke-value pair into context, so here on 24 line we can get it by key
 // Since we know the name of the key from props, we can use { todo } instead of props.todo
 function TodoItem({ todo, index, onChange }) {
+  const { deleteTodo } = useContext(Context)
   const classes = []
   if (todo.completed) {
     classes.push('done')
@@ -35,7 +38,7 @@ function TodoItem({ todo, index, onChange }) {
         &nbsp;
         {todo.title}
       </span>
-      <button className='rm'>&times;</button>
+      <button className='rm' onClick={() => deleteTodo(todo.id)}>&times;</button>
     </li>
   )
 }
