@@ -28,3 +28,7 @@ code {
 .done {
   background: lightgreen;
 }
+
+form {
+  margin-bottom: 1rem;
+}
