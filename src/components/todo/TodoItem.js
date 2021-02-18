@@ -20,8 +20,8 @@ const styles = {
 
 // We send deleteTodo ke-value pair into context, so here on 24 line we can get it by key
 // Since we know the name of the key from props, we can use { todo } instead of props.todo
-function TodoItem({ todo, index, onChange }) {
-  const { deleteTodo } = useContext(Context)
+function TodoItem({ todo, index }) {
+  const { deleteTodo, changeTodo } = useContext(Context)
   const classes = []
   if (todo.completed) {
     classes.push('done')
@@ -33,7 +33,7 @@ function TodoItem({ todo, index, onChange }) {
         <input type="checkbox"
                checked={todo.completed}
                style={styles.input}
-               onChange={() => onChange(todo.id)}/>
+               onChange={() => changeTodo(todo.id)}/>
         <strong>{index + 1}. </strong>
         &nbsp;
         {todo.title}

@@ -37,12 +37,12 @@ function App() {
 
   // We can just use deleteTodo instead of key value pair since the name and value are similar
   return (
-    <Context.Provider value={{ deleteTodo: deleteTodo }}>
+    <Context.Provider value={{ deleteTodo, changeTodo }}>
       <div className="wrapper">
         <h1>Plans</h1>
         <AddTodo onCreate={ addTodo } />
         {todos.length ? (
-            < TodoList todos={todos} onChange={ changeTodo } />
+            < TodoList todos={todos} />
         ) : (
             <p>You don't have any TODO's</p>
         )}
