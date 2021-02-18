@@ -1,6 +1,7 @@
 import React from 'react';
-import TodoList from './components/todo/TodoList'
 import Context from './context'
+import TodoList from './components/todo/TodoList'
+import AddTodo from './components/todo/AddTodo';
 
 //useState always returns 2 element array.
 // First element is state, second is a function to change this state
@@ -26,11 +27,20 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  function addTodo(title) {
+    setTodos(todos.concat([{
+      title,
+      id: Date.now(),
+      completed: false
+    }]))
+  }
+
   // We can just use deleteTodo instead of key value pair since the name and value are similar
   return (
     <Context.Provider value={{ deleteTodo: deleteTodo }}>
       <div className="wrapper">
         <h1>Plans</h1>
+        <AddTodo onCreate={ addTodo } />
         {todos.length ? (
             < TodoList todos={todos} onChange={ changeTodo } />
         ) : (
