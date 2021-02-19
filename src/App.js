@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Context from './context'
 import TodoList from './components/todo/TodoList'
 import AddTodo from './components/todo/AddTodo';
@@ -6,11 +6,15 @@ import AddTodo from './components/todo/AddTodo';
 //useState always returns 2 element array.
 // First element is state, second is a function to change this state
 function App() {
-  const [todos, setTodos] = React.useState([
-    {id: 1, completed: false, title: 'User APi testing'},
-    {id: 2, completed: false, title: 'Article workflow implementation'},
-    {id: 3, completed: false, title: 'Article API testing'}
-  ])
+  const [todos, setTodos] = React.useState([])
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos/?_limit=10').
+        then(response => response.json()).
+        then(todos => {
+          setTodos(todos)
+        })
+  }, [])
 
   function changeTodo(id) {
     setTodos(
