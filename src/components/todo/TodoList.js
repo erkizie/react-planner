@@ -24,7 +24,6 @@ function TodoList(props) {
 //Validation
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onChange: PropTypes.func.isRequired
 }
 
 export default TodoList

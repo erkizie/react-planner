@@ -46,8 +46,7 @@ function TodoItem({ todo, index }) {
 //Validation
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
-  index: PropTypes.number,
-  onChange: PropTypes.func.isRequired
+  index: PropTypes.number
 }
 
 export default TodoItem
