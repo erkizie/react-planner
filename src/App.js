@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Context from './context'
 import TodoList from './components/todo/TodoList'
 import Loader from './loader'
+import Modal from './modal/modal'
 
 // to optimize loading process, put some components in chunks to make it lazy loaded
 const AddTodo = React.lazy(() => import('./components/todo/AddTodo'))
@@ -51,6 +52,7 @@ function App() {
     <Context.Provider value={{ deleteTodo, changeTodo }}>
       <div className="wrapper">
         <h1>Plans</h1>
+        <Modal />
         <React.Suspense fallback={<Loader />}>
           <AddTodo onCreate={ addTodo } />
         </React.Suspense>
