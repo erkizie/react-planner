@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import Context from './context'
 import TodoList from './components/todo/TodoList'
-import AddTodo from './components/todo/AddTodo';
 import Loader from './loader'
+
+// to optimize loading process, put some components in chunks to make it lazy loaded
+const AddTodo = React.lazy(() => import('./components/todo/AddTodo'))
 
 //useState always returns 2 element array.
 // First element is state, second is a function to change this state
@@ -49,7 +51,9 @@ function App() {
     <Context.Provider value={{ deleteTodo, changeTodo }}>
       <div className="wrapper">
         <h1>Plans</h1>
-        <AddTodo onCreate={ addTodo } />
+        <React.Suspense fallback={<Loader />}>
+          <AddTodo onCreate={ addTodo } />
+        </React.Suspense>
         {loading && <Loader />}
         {todos.length ? (
             < TodoList todos={todos} />
