@@ -2,17 +2,22 @@ import React, { useEffect } from 'react';
 import Context from './context'
 import TodoList from './components/todo/TodoList'
 import AddTodo from './components/todo/AddTodo';
+import Loader from './loader'
 
 //useState always returns 2 element array.
 // First element is state, second is a function to change this state
 function App() {
   const [todos, setTodos] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos/?_limit=10').
         then(response => response.json()).
         then(todos => {
-          setTodos(todos)
+          setTimeout(() => {
+            setTodos(todos)
+            setLoading(false)
+          }, 1000)
         })
   }, [])
 
@@ -45,10 +50,11 @@ function App() {
       <div className="wrapper">
         <h1>Plans</h1>
         <AddTodo onCreate={ addTodo } />
+        {loading && <Loader />}
         {todos.length ? (
             < TodoList todos={todos} />
-        ) : (
-            <p>You don't have any TODO's</p>
+        ) : loading ? null : (
+            <p>You don't have any TODOs</p>
         )}
       </div>
     </Context.Provider>
